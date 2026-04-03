@@ -50,8 +50,9 @@ const Footer = () => {
                 </div>
             </div>
             
-            <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-cream/10 text-center text-xs tracking-widest uppercase text-cream/40">
-                &copy; {new Date().getFullYear()} BrewHouse Café. All rights reserved. Built with passion.
+            <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-cream/10 text-center text-[10px] tracking-widest uppercase text-cream/40 flex flex-col md:flex-row justify-between items-center gap-4">
+                <span>&copy; {new Date().getFullYear()} BrewHouse Café. All rights reserved.</span>
+                <span className="font-bold tracking-[0.2em] text-latte italic">Designed and developed by Ck chaitanya<span className="text-white">.</span></span>
             </div>
         </footer>
     )
