@@ -19,13 +19,17 @@ export function AuthProvider({ children }) {
     const user = userCredential.user;
     
     // Create user profile in Firestore
-    await setDoc(doc(db, "users", user.uid), {
-      uid: user.uid,
-      name,
-      email,
-      role: "user",
-      createdAt: new Date().toISOString()
-    });
+    try {
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        name,
+        email,
+        role: "user",
+        createdAt: new Date().toISOString()
+      });
+    } catch (error) {
+      console.error("Firestore Error during signup:", error);
+    }
     
     return user;
   }
@@ -42,8 +46,8 @@ export function AuthProvider({ children }) {
     console.log("AuthContext: Initializing listener...");
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       console.log("AuthContext: State changed, user:", user?.uid);
-      try {
-        if (user) {
+      if (user) {
+        try {
           // Check for admin role in firestore
           const userDoc = await getDoc(doc(db, "users", user.uid));
           if (userDoc.exists()) {
@@ -54,13 +58,16 @@ export function AuthProvider({ children }) {
             setCurrentUser(user);
             setIsAdmin(false);
           }
-        } else {
-          setCurrentUser(null);
+        } catch (err) {
+          console.error("AuthContext Error fetching user data:", err);
+          setCurrentUser(user); // Fallback to basic auth user
           setIsAdmin(false);
+        } finally {
+          setLoading(false);
         }
-      } catch (err) {
-        console.error("AuthContext Error:", err);
-      } finally {
+      } else {
+        setCurrentUser(null);
+        setIsAdmin(false);
         setLoading(false);
       }
     }, (error) => {
