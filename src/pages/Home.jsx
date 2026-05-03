@@ -6,36 +6,37 @@ const Home = () => {
     return (
         <div className="space-y-32">
             {/* Hero Section */}
-            <section className="relative h-[80vh] min-h-[600px] flex items-center justify-center px-6 sm:px-12 pointer-events-none">
+            <section className="relative md:min-h-[600px] md:h-[80vh] flex items-center justify-center px-6 sm:px-12 pointer-events-none pt-16 pb-32 md:py-0">
                 <div className="absolute inset-0 z-0 opacity-10 overflow-hidden">
                     <div className="absolute top-1/4 -left-20 w-96 h-96 bg-latte rounded-full blur-[100px] animate-pulse"></div>
                     <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-espresso rounded-full blur-[100px]"></div>
                 </div>
 
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16 relative z-10 pointer-events-auto">
-                    <motion.div 
+                <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16 relative z-10 pointer-events-auto">
+                    <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
                         className="flex-1 text-center md:text-left"
                     >
-                        <span className="inline-block px-4 py-1.5 mb-6 bg-latte/10 text-latte text-xs font-bold tracking-[0.2em] uppercase rounded-full">Crafted with Love</span>
-                        <h1 className="text-5xl md:text-7xl font-serif font-bold text-espresso leading-tight mb-8">
-                            Experience the Art of <span className="text-latte underline-offset-8 decoration-latte underline italic">Coffee</span>
+                        <span className="inline-block px-4 py-1.5 mb-4 md:mb-6 bg-latte/10 text-latte text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase rounded-full">Crafted with Love</span>
+                        <h1 className="text-3xl min-[400px]:text-4xl sm:text-5xl md:text-7xl font-serif font-bold text-espresso leading-tight mb-6 md:mb-8 whitespace-nowrap overflow-visible">
+                            Experience the Art of<br />
+                            <span className="text-latte underline-offset-8 decoration-latte underline italic">Coffee</span>
                         </h1>
-                        <p className="text-lg md:text-xl text-charcoal/70 mb-10 max-w-lg leading-relaxed">
+                        <p className="text-base sm:text-lg md:text-xl text-charcoal/70 mb-8 md:mb-10 max-w-lg leading-relaxed mx-auto md:mx-0">
                             Every bean is hand-selected and roasted to perfection. Welcome to BrewHouse, where every cup tells a story.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 items-center justify-center md:justify-start">
                             <Link to="/menu" className="btn-primary flex items-center group w-full sm:w-auto justify-center">
-                                Explore Menu 
+                                Explore Menu
                                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </Link>
                             <Link to="/reserve" className="btn-secondary w-full sm:w-auto justify-center text-center">Book a Table</Link>
                         </div>
                     </motion.div>
 
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1 }}
@@ -44,13 +45,13 @@ const Home = () => {
                         <div className="relative z-10 h-full w-full rounded-[40px] overflow-hidden shadow-2xl border-4 border-white">
                             <img src="/hero-coffee.jpg" alt="Beautiful coffee craft" className="w-full h-full object-cover" />
                         </div>
-                        <div className="absolute -bottom-8 -left-8 bg-white p-6 rounded-3xl shadow-xl z-20 flex items-center space-x-4 border border-latte/10">
+                        <div className="absolute -bottom-4 md:-bottom-8 -left-4 md:-left-8 bg-white p-5 md:p-6 rounded-3xl shadow-xl z-20 flex items-center space-x-4 border border-latte/10">
                             <div className="p-3 bg-latte/20 rounded-full">
                                 <Clock className="w-8 h-8 text-espresso" />
                             </div>
                             <div className="whitespace-nowrap">
                                 <h4 className="font-bold text-espresso">Daily Fresh</h4>
-                                <p className="text-xs text-charcoal/60 underline decoration-latte">Roasted every morning</p>
+                                <p className="text-xs text-charcoal/60 underline decoration-latte leading-relaxed pb-0.5">Roasted every morning</p>
                             </div>
                         </div>
                     </motion.div>
@@ -73,7 +74,7 @@ const Home = () => {
                         <span className="text-latte font-bold tracking-widest text-xs uppercase mb-2 block">Our Favorites</span>
                         <h2 className="text-4xl md:text-5xl font-serif font-bold text-espresso">Featured Selection</h2>
                     </div>
-                    <Link to="/menu" className="text-latte font-bold hover:underline mb-2 flex items-center">View Full Menu <ArrowRight className="ml-1 w-4 h-4"/> </Link>
+                    <Link to="/menu" className="text-latte font-bold hover:underline mb-2 flex items-center">View Full Menu <ArrowRight className="ml-1 w-4 h-4" /> </Link>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -89,7 +90,7 @@ const Home = () => {
                     <span className="text-latte font-bold tracking-widest text-xs uppercase mb-4 block">Visual Story</span>
                     <h2 className="text-5xl md:text-6xl font-serif font-bold text-espresso leading-tight italic">BrewMaster's <span className="underline decoration-latte/20 underline-offset-8">Gallery.</span></h2>
                 </div>
-                
+
                 <div className="flex gap-10 px-6 sm:px-12 overflow-x-auto no-scrollbar pb-10">
                     <GalleryImage src="/hero-coffee.jpg" title="The Perfect Pull" tag="Espresso" />
                     <GalleryImage src="/about-cafe.jpg" title="Sanctuary of Brew" tag="Interior" />
@@ -99,14 +100,14 @@ const Home = () => {
                 </div>
             </section>
 
-             {/* Booking Banner Section */}
-             <section className="px-6 sm:px-12 max-w-7xl mx-auto mb-32">
+            {/* Booking Banner Section */}
+            <section className="px-6 sm:px-12 max-w-7xl mx-auto mb-32">
                 <div className="relative premium-gradient rounded-[3rem] p-12 md:p-24 overflow-hidden group">
                     <div className="absolute top-0 right-0 w-1/3 h-full opacity-10 pointer-events-none transition-transform duration-700 group-hover:scale-110">
                         <Coffee className="w-full h-full text-white" />
                     </div>
                     <div className="max-w-xl relative z-10">
-                        <h2 className="text-4xl md:text-6xl text-white font-serif font-bold mb-8">Plan your visit<br/>today.</h2>
+                        <h2 className="text-4xl md:text-6xl text-white font-serif font-bold mb-8">Plan your visit<br />today.</h2>
                         <p className="text-cream/70 text-lg mb-10 leading-relaxed">Avoid the queue and secure your favorite corner. We’re open for booking private tables and workspace niches.</p>
                         <Link to="/reserve" className="inline-flex items-center space-x-3 px-8 py-4 bg-white text-espresso rounded-full font-bold transition-all hover:bg-latte hover:text-white">
                             <span>Make a Reservation</span>
@@ -114,13 +115,13 @@ const Home = () => {
                         </Link>
                     </div>
                 </div>
-             </section>
+            </section>
         </div>
     )
 }
 
 const FeatureItem = ({ icon, title, description }) => (
-    <motion.div 
+    <motion.div
         whileHover={{ y: -10 }}
         className="flex flex-col items-center space-y-6"
     >
@@ -132,7 +133,7 @@ const FeatureItem = ({ icon, title, description }) => (
 
 const FeaturedCard = ({ title, price, image, desc }) => (
     <Link to="/menu">
-        <motion.div 
+        <motion.div
             whileHover={{ y: -10 }}
             className="card group cursor-pointer border-none shadow-xl bg-[#F8F5F1] h-full"
         >
@@ -151,9 +152,9 @@ const FeaturedCard = ({ title, price, image, desc }) => (
 )
 
 const GalleryImage = ({ src, title, tag }) => (
-    <motion.div 
+    <motion.div
         whileHover={{ scale: 1.05 }}
-        className="relative min-w-[350px] md:min-w-[450px] h-[500px] rounded-[3rem] overflow-hidden group shadow-2xl flex-shrink-0"
+        className="relative min-w-[280px] md:min-w-[450px] h-[350px] md:h-[500px] rounded-[2rem] md:rounded-[3rem] overflow-hidden group shadow-2xl flex-shrink-0"
     >
         <img src={src} alt={title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
         <div className="absolute inset-0 bg-gradient-to-t from-espresso/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-12">
