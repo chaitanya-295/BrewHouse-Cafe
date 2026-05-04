@@ -15,12 +15,13 @@ const Dashboard = () => {
             if (!currentUser) return
             setLoading(true)
             try {
+                const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 30000));
+                
                 const q = query(
                     collection(db, "reservations"), 
-                    where("userId", "==", currentUser.uid),
-                    orderBy("createdAt", "desc")
+                    where("userId", "==", currentUser.uid)
                 )
-                const querySnapshot = await getDocs(q)
+                const querySnapshot = await Promise.race([getDocs(q), timeoutPromise]);
                 setReservations(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })))
             } catch (error) {
                 console.error("Error fetching user data:", error)

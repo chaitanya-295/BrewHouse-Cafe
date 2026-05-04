@@ -29,6 +29,7 @@ export function AuthProvider({ children }) {
       });
     } catch (error) {
       console.error("Firestore Error during signup:", error);
+      import("sonner").then(({ toast }) => toast.error("Account created, but failed to save profile: " + error.message));
     }
     
     return user;
@@ -81,7 +82,7 @@ export function AuthProvider({ children }) {
         console.warn("AuthContext: Initialization timed out, forcing load...");
         setLoading(false);
       }
-    }, 5000);
+    }, 30000);
 
     return () => {
       unsubscribe();

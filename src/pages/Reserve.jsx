@@ -17,7 +17,8 @@ const Reserve = () => {
         time: "",
         guests: "2",
         occasion: "General",
-        specialRequest: ""
+        specialRequest: "",
+        tableNumber: "1"
     })
 
     const handleSubmit = async (e) => {
@@ -40,8 +41,8 @@ const Reserve = () => {
             setSuccess(true)
             toast.success("Reservation request sent successfully!")
         } catch (error) {
-            console.error("Error reservation:", error)
-            toast.error("Failed to make reservation. Please try again.")
+            console.error("Firestore Error during reservation:", error);
+            toast.error(`Reservation failed: ${error.message || 'Unknown error'}. Check your internet and Firebase rules.`);
         } finally {
             setLoading(false)
         }
@@ -114,20 +115,35 @@ const Reserve = () => {
                         </div>
                     </div>
 
-                    <div className="space-y-3">
-                        <label className="text-xs font-bold uppercase tracking-widest text-espresso/40 ml-1">Number of Guests</label>
-                        <select 
-                            required
-                            value={formData.guests}
-                            onChange={(e) => setFormData({...formData, guests: e.target.value})}
-                            className="w-full p-4 bg-cream/50 border border-espresso/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-latte/20 transition-all font-medium text-espresso"
-                        >
-                            <option value="1">1 Guest</option>
-                            <option value="2">2 Guests</option>
-                            <option value="4">4 Guests</option>
-                            <option value="6">6 Guests</option>
-                            <option value="10">10 Guests</option>
-                        </select>
+                    <div className="grid grid-cols-2 gap-6">
+                        <div className="space-y-3">
+                            <label className="text-xs font-bold uppercase tracking-widest text-espresso/40 ml-1">Number of Guests</label>
+                            <select 
+                                required
+                                value={formData.guests}
+                                onChange={(e) => setFormData({...formData, guests: e.target.value})}
+                                className="w-full p-4 bg-cream/50 border border-espresso/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-latte/20 transition-all font-medium text-espresso"
+                            >
+                                <option value="1">1 Guest</option>
+                                <option value="2">2 Guests</option>
+                                <option value="4">4 Guests</option>
+                                <option value="6">6 Guests</option>
+                                <option value="10">10 Guests</option>
+                            </select>
+                        </div>
+                        <div className="space-y-3">
+                            <label className="text-xs font-bold uppercase tracking-widest text-espresso/40 ml-1">Table Number</label>
+                            <select 
+                                required
+                                value={formData.tableNumber}
+                                onChange={(e) => setFormData({...formData, tableNumber: e.target.value})}
+                                className="w-full p-4 bg-cream/50 border border-espresso/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-latte/20 transition-all font-medium text-espresso"
+                            >
+                                {[...Array(15)].map((_, i) => (
+                                    <option key={i+1} value={i+1}>Table {i+1}</option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
 
                     <div className="space-y-3">

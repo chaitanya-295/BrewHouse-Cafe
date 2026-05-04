@@ -12,6 +12,7 @@ const Menu = () => {
     const [ordering, setOrdering] = useState(null)
     const [search, setSearch] = useState("")
     const [activeCategory, setActiveCategory] = useState("All")
+    const [tableNumber, setTableNumber] = useState("1")
     const { currentUser } = useAuth()
 
     const categories = ["All", "Hot Drinks", "Cold Drinks", "Food", "Specials"]
@@ -21,7 +22,7 @@ const Menu = () => {
             console.log("Menu: Fetching items...");
             try {
                 // Set a timeout for the fetch
-                const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 5000));
+                const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 30000));
                 
                 const q = query(collection(db, "menu"), orderBy("name"));
                 const querySnapshot = await Promise.race([getDocs(q), timeoutPromise]);
@@ -34,6 +35,7 @@ const Menu = () => {
                 setItems(menuItems);
             } catch (error) {
                 console.error("Menu: Error fetching items:", error);
+                toast.error(`Menu fetch failed: ${error.message}. Check if your collection name is 'menu' and rules are published.`);
                 setItems([]);
             } finally {
                 setLoading(false);
@@ -52,7 +54,8 @@ const Menu = () => {
         try {
             await addDoc(collection(db, "orders"), {
                 userId: currentUser.uid,
-                userName: currentUser.displayName || currentUser.email,
+                userName: currentUser.name || currentUser.displayName || currentUser.email,
+                tableNumber: tableNumber,
                 itemName: item.name,
                 price: item.price,
                 status: "Pending",
@@ -133,15 +136,29 @@ const Menu = () => {
                     ))}
                 </div>
 
-                <div className="relative group max-w-sm w-full">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-charcoal/40 group-focus-within:text-latte transition-colors duration-300" />
-                    <input 
-                        type="text" 
-                        placeholder="Search our selection..."
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        className="w-full pl-11 pr-4 py-3 bg-white border border-espresso/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-latte/20 transition-all font-medium text-charcoal"
-                    />
+                <div className="flex gap-4 w-full md:max-w-md">
+                    <div className="relative group flex-grow">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-charcoal/40 group-focus-within:text-latte transition-colors duration-300" />
+                        <input 
+                            type="text" 
+                            placeholder="Search selection..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            className="w-full pl-11 pr-4 py-3 bg-white border border-espresso/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-latte/20 transition-all font-medium text-charcoal"
+                        />
+                    </div>
+                    <div className="relative w-32 shrink-0">
+                        <input 
+                            type="number" 
+                            min="1"
+                            max="20"
+                            placeholder="Table"
+                            value={tableNumber}
+                            onChange={(e) => setTableNumber(e.target.value)}
+                            className="w-full px-4 py-3 bg-white border border-espresso/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-latte/20 transition-all font-bold text-espresso"
+                        />
+                        <span className="absolute -top-6 left-1 text-[10px] uppercase font-black tracking-widest text-espresso/40">Table</span>
+                    </div>
                 </div>
             </div>
 

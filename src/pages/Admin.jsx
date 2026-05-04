@@ -237,6 +237,7 @@ const ReservationsPanel = ({ reservations, onUpdate }) => (
                     <tr>
                         <th className="px-8 py-5">Customer</th>
                         <th className="px-8 py-5">Timing</th>
+                        <th className="px-8 py-5">Table</th>
                         <th className="px-8 py-5">Party</th>
                         <th className="px-8 py-5 text-center">Status</th>
                         <th className="px-8 py-5 text-right">Actions</th>
@@ -252,6 +253,9 @@ const ReservationsPanel = ({ reservations, onUpdate }) => (
                             <td className="px-8 py-6">
                                 <div className="font-medium text-espresso">{res.date}</div>
                                 <div className="text-xs text-charcoal/40">{res.time}</div>
+                            </td>
+                            <td className="px-8 py-6">
+                                <div className="font-bold text-latte">Table {res.tableNumber || "N/A"}</div>
                             </td>
                             <td className="px-8 py-6 font-bold text-espresso/60">{res.guests} Guests</td>
                             <td className="px-8 py-6">
@@ -281,6 +285,7 @@ const OrdersPanel = ({ orders, onUpdate }) => (
                 <thead className="bg-cream/20 text-[10px] font-black uppercase tracking-widest text-espresso/40">
                     <tr>
                         <th className="px-8 py-5">Customer</th>
+                        <th className="px-8 py-5">Location</th>
                         <th className="px-8 py-5">Order Detail</th>
                         <th className="px-8 py-5 text-center">Status</th>
                         <th className="px-8 py-5 text-right">Actions</th>
@@ -293,8 +298,11 @@ const OrdersPanel = ({ orders, onUpdate }) => (
                                 <div className="font-bold text-espresso">{order.userName || "Guest"}</div>
                                 <div className="text-xs text-charcoal/40">{new Date(order.createdAt?.seconds * 1000).toLocaleString()}</div>
                             </td>
+                            <td className="px-8 py-6 font-bold text-latte">
+                                Table {order.tableNumber || "N/A"}
+                            </td>
                             <td className="px-8 py-6">
-                                <div className="font-bold text-latte">{order.itemName}</div>
+                                <div className="font-bold text-espresso">{order.itemName}</div>
                                 <div className="text-xs font-black text-espresso/40 uppercase tracking-tighter">${order.price}</div>
                             </td>
                             <td className="px-8 py-6">

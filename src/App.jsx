@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom"
 import { AuthProvider } from "./context/AuthContext"
 import Layout from "./components/Layout"
 import ProtectedRoute from "./components/ProtectedRoute"
+import { Toaster } from "sonner"
 
 // Pages
 import Home from "./pages/Home"
@@ -17,6 +18,7 @@ import Admin from "./pages/Admin"
 function App() {
   return (
     <AuthProvider>
+      <Toaster position="top-center" expand={true} richColors />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
